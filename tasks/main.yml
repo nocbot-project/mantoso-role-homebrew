@@ -1,0 +1,7 @@
+---
+
+- import_tasks: homebrew.yml
+- import_tasks: formula.yml
+- import_tasks: cask.yml
+
+...

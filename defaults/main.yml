@@ -1,0 +1,41 @@
+---
+
+homebrew_brew_bin_path: "{{ homebrew_prefix }}/bin"
+
+homebrew_cask_appdir: /Applications
+
+homebrew_cask_apps:
+  - iterm2
+
+homebrew_cask_apps_user: []
+
+homebrew_clear_cache: []
+
+homebrew_install_path: "{{ homebrew_prefix }}/Homebrew"
+
+homebrew_installed_packages:
+  - coreutils
+
+homebrew_installed_packages_user: []
+
+homebrew_prefix: /usr/local
+
+homebrew_repo: https://github.com/Homebrew/brew
+
+homebrew_taps:
+  - homebrew/cask
+  - homebrew/core
+
+homebrew_taps_user: []
+
+homebrew_uninstalled_packages: []
+
+homebrew_uninstalled_packages_user: []
+
+homebrew_cask_uninstalled_packages: []
+
+homebrew_upgrade_all_packages: []
+
+homebrew_user: []
+
+...

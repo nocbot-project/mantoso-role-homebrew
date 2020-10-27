@@ -1,0 +1,15 @@
+---
+
+repository:
+  name: mantoso-role-homebrew
+  description: Ansible role to install Homebrew and brew applications
+  homepage: https://mantoso.com
+  has_wiki: false
+
+labels:
+  - name: bug
+    color: CC0000
+  - name: feature
+    color: 336699
+
+...

@@ -1,0 +1,110 @@
+---
+
+# ansible-playbook --ask-become-pass homebrew-playbook.yml
+
+- hosts: localhost
+  connection: local
+
+  vars:
+    homebrew_clear_cache: true
+    homebrew_group: admin
+    homebrew_user: "{{ lookup('env','USER') }}"
+    homebrew_upgrade_all_packages: yes
+    ansible_python_interpreter: "/usr/bin/python3"
+
+    homebrew_taps_user:
+      - colindean/fonts-nonfree     # font-microsoft-office
+      - homebrew/cask-fonts
+      - homebrew/cask-versions      # microsoft-edge-dev
+      - homebrew/services
+      - mantoso/tap
+      - xen0l/homebrew-taps         # aws-gate
+
+    homebrew_installed_packages_user:
+      - autoconf
+      - automake
+      - asciidoctor
+      - azure-cli
+      - azure-storage-cpp
+      - bat
+      - black
+      - cfn-lint
+      - chamber
+      - colordiff
+      - direnv
+      - docutils
+      - fzf
+      - gawk
+      - gh
+      - gitup
+      - git
+      - gnupg
+      - graphviz
+      - grc
+      - hugo
+      - ipv6calc
+      - ipcalc
+      - libdvdcss
+      - jq
+      - mr
+      - node
+      - packer
+      - pinentry-mac
+      - pre-commit
+      - pyenv
+      - pyenv-virtualenv
+      - pyenv-virtualenvwrapper
+      - rename                      # rename "s/yml/yaml/" **.yml
+      - ruby
+      - shellcheck
+      - sshpass
+      - sphinx-doc
+      - terraform-docs
+      - tflint
+      - tree
+      - warrensbox/tap/tfswitch
+      - tmux
+      - vagrant-completion
+      - vim
+      - wget
+      - yarn
+
+    homebrew_uninstalled_packages_user:
+      - python@2
+
+    homebrew_cask_apps_user:
+      - appcleaner
+      - firefox
+      - font-jetbrains-mono
+      - font-meslo-lg-nerd-font
+      - font-microsoft-office
+      - font-zilla-slab
+      - font-sauce-code-pro-nerd-font
+      - github
+      # - google-chrome
+      # - imagealpha
+      # - imageoptim
+      # - handbrake
+      - microsoft-edge-dev
+      # - microsoft-teams
+      # - onedrive
+      # - powershell
+      - pycharm
+      - slack
+      - transmit
+      - transmit-disk
+      - vagrant
+      - vagrant-manager
+      - vlc
+      - the-unarchiver
+      # - zoomus
+
+    homebrew_cask_uninstalled_packages_user:
+      - keybase
+
+  roles:
+    - mantoso-role-homebrew
+
+# ansible-playbook --ask-become-pass homebrew-playbook.yml
+
+...

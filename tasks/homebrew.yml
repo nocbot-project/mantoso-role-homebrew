@@ -1,0 +1,105 @@
+---
+
+- name: Determine Homebrew ownership variables
+  set_fact:
+    homebrew_user: "{{ homebrew_user | default(ansible_user_id) }}"
+    homebrew_group: "{{ homebrew_group | default(ansible_user_gid) }}"
+
+- name: Ensure Homebrew parent directory correct permissions
+  file:
+    path: "{{ homebrew_prefix }}"
+    owner: root
+    state: directory
+  become: yes
+
+- name: Ensure Homebrew directory exists.
+  file:
+    path: "{{ homebrew_install_path }}"
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+    state: directory
+    mode: 0775
+  become: yes
+
+- name: Ensure Homebrew is installed.
+  git:
+    repo: "{{ homebrew_repo }}"
+    version: master
+    dest: "{{ homebrew_install_path }}"
+    update: no
+    accept_hostkey: yes
+    depth: 1
+
+- name: Ensure proper permissions and ownership on homebrew_brew_bin_path dirs.
+  file:
+    path: "{{ homebrew_brew_bin_path }}"
+    state: directory
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+    mode: 0775
+  become: yes
+
+- name: Ensure proper ownership on homebrew_install_path subdirs.
+  file:
+    path: "{{ homebrew_install_path }}"
+    state: directory
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+  become: yes
+
+- name: Check if homebrew binary is already in place.
+  stat:
+    path: "{{ homebrew_brew_bin_path }}/brew"
+  register: homebrew_binary
+  check_mode: no
+
+- name: Symlink brew to homebrew_brew_bin_path.
+  file:
+    src: "{{ homebrew_install_path }}/bin/brew"
+    dest: "{{ homebrew_brew_bin_path }}/brew"
+    state: link
+  when: not homebrew_binary.stat.exists
+  become: yes
+
+- name: Ensure proper homebrew folders are in place
+  file:
+    path: "{{ homebrew_prefix }}/{{ item }}"
+    state: directory
+    owner: "{{ homebrew_user }}"
+    group: "{{ homebrew_group }}"
+  become: yes
+  loop:
+    - Cellar
+    - Homebrew
+    - Frameworks
+    - Caskroom
+    - bin
+    - etc
+    - include
+    - lib
+    - opt
+    - sbin
+    - share
+    - share/zsh
+    - share/zsh/site-functions
+    - var
+
+- name: Force update brew after installation.
+  command: "{{ homebrew_brew_bin_path }}/brew update --force"
+  when: not homebrew_binary.stat.exists
+
+- name: Locate homebrew cache
+  command: "{{ homebrew_brew_bin_path }}/brew --cache"
+  register: homebrew_cache_path
+  changed_when: false
+  check_mode: no
+
+- name: Ensure configured taps are tapped.
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  with_flattened:
+    - "{{ homebrew_taps }}"
+    - "{{ homebrew_taps_user }}"
+
+...

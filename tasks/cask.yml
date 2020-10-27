@@ -1,0 +1,20 @@
+---
+
+- name: Install Cask applications.
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    install_options: "appdir={{ homebrew_cask_appdir }}"
+  loop:
+    - "{{ homebrew_cask_apps }}"
+    - "{{ homebrew_cask_apps_user }}"
+
+- name: Ensure blacklisted Cask packages are not installed.
+  homebrew:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - "{{ homebrew_cask_uninstalled_packages }}"
+    - "{{ homebrew_cask_uninstalled_packages_user }}"
+
+...
