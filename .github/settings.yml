@@ -1,9 +1,9 @@
 ---
 
 repository:
-  name: mantoso-role-homebrew
-  description: Ansible role to install Homebrew and brew applications
-  homepage: https://mantoso.com
+  name: nocbot-role-homebrew
+  description: Ansible role to install Homebrew applications
+  homepage: https://vpc.dev
   has_wiki: false
 
 labels:
