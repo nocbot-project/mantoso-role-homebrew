@@ -61,3 +61,10 @@ ln -s $(pwd)/roles/nocbot-role-homebrew/homebrew-playbook-example.yml $(pwd)/hom
 ```shell script
 ansible-playbook --ask-become-pass homebrew-playbook.yml
 ```
+
+
+### Change remote URL
+
+```
+git remote set-url origin git@github.com:nocbot-project/nocbot-role-homebrew.git
+```
