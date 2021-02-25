@@ -15,7 +15,7 @@
     homebrew_taps_user:
       - colindean/fonts-nonfree     # font-microsoft-office
       - homebrew/cask-fonts
-      - homebrew/cask-versions      # microsoft-edge-dev
+      - homebrew/cask-versions      # microsoft-edge
       - homebrew/services
       - mantoso/tap
       - xen0l/homebrew-taps         # aws-gate
@@ -61,6 +61,7 @@
       - sphinx-doc
       - terraform-docs
       - tflint
+      - tfswitch
       - tree
       - warrensbox/tap/tfswitch
       - tmux
@@ -74,6 +75,7 @@
 
     homebrew_cask_apps_user:
       - appcleaner
+      - bitwarden
       - firefox
       - font-jetbrains-mono
       - font-meslo-lg-nerd-font
@@ -85,12 +87,12 @@
       # - imagealpha
       # - imageoptim
       # - handbrake
-      - microsoft-edge-dev
+      - microsoft-edge
       # - microsoft-teams
       # - onedrive
       # - powershell
       - pycharm
-      - slack
+      # - slack
       - transmit
       - transmit-disk
       - vagrant
@@ -103,7 +105,7 @@
       - keybase
 
   roles:
-    - mantoso-role-homebrew
+    - nocbot-role-homebrew
 
 # ansible-playbook --ask-become-pass homebrew-playbook.yml
 
